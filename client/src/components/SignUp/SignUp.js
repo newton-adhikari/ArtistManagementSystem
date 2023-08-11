@@ -27,6 +27,7 @@ const SignUp = () => {
              })
              .catch(err => {
                 // user cannot be created
+                //email must be unique
              })
     }
 

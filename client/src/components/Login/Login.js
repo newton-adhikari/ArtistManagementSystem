@@ -21,12 +21,12 @@ const Login = () => {
                 console.log(res);
             })
             .catch(err => {
-                const {message} = err.response.data;
-                console.log(message);
-                setError(message);
-                setTimeout(() => {
-                    setError("");
-                }, 3000)
+                // const {message} = err.response.data;
+                // console.log(message);
+                // setError(message);
+                // setTimeout(() => {
+                //     setError("");
+                // }, 3000)
             })
     }
     
