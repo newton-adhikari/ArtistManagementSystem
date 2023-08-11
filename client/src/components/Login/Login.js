@@ -11,14 +11,20 @@ const Login = () => {
     });
 
     const [error, setError] = useState("");
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         axios.post(`${baseURL}/api/login`, values)
             .then(res => {
-                console.log(res);
+                localStorage.setItem("token", res.data.token);
+                localStorage.setItem("name", res.data.firstName);
+                const role = res.data.role;
+
+                if (role === 'super_admin') navigate(`/admin`);
+                else if (role === 'manager') navigate('/manager');
+                else if (role === 'artist') navigate('/artist');
             })
             .catch(err => {
                 // const {message} = err.response.data;
