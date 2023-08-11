@@ -1,0 +1,13 @@
+.signUpPage {
+    background: url("../../../public/images/Background.jpg");
+    background: linear-gradient(rgba(11, 11, 11, 0.5), rgba(10, 10, 10, 0.5)), url("../../../public/images/Background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100% 120%;
+}
+
+.singUpForm {
+    background-color: rgba(1, 32, 93, 0.6);
+    border: 2px solid black;
+    color: white;
+}
