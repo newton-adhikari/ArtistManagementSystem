@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./SignUp.css";
 
@@ -12,15 +13,21 @@ const SignUp = () => {
         dob: "",
         gender: "",
         address: "",
-        roleType: "artist"
     })
+
+    const navigate = useNavigate();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         
         axios.post("http://localhost:33330/api/signup", data)
-             .then(res => console.log(res))
-             .catch(err => console.log(err))
+             .then(res => {
+                // forward the user to the login
+                navigate("/");
+             })
+             .catch(err => {
+                // user cannot be created
+             })
     }
 
     return (
@@ -36,12 +43,12 @@ const SignUp = () => {
                     </div> */}
                     <div className="col-12">
                         <label htmlFor="firstName" className="form-label">First Name</label>
-                        <input type="text" className="form-control" id="firstName" placeholder='First Name' autoComplete='off'
+                        <input minLength="5" required type="text" className="form-control" id="firstName" placeholder='First Name' autoComplete='off'
                         onChange={e => setData({...data, firstName: e.target.value})}/>
                     </div>
                     <div className="col-12">
                         <label htmlFor="lastName" className="form-label">Last Name</label>
-                        <input type="text" className="form-control" id="lastName" placeholder='Last Name' autoComplete='off'
+                        <input minLength="5" required type="text" className="form-control" id="lastName" placeholder='Last Name' autoComplete='off'
                         onChange={e => setData({...data, lastName: e.target.value})}/>
                     </div>
                     <div className="col-12">
@@ -51,7 +58,7 @@ const SignUp = () => {
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputPassword4" className="form-label">Password</label>
-                        <input type="password" className="form-control" id="inputPassword4" placeholder='Enter Password'
+                        <input minLength="5" required type="password" className="form-control" id="inputPassword4" placeholder='Enter Password'
                             onChange={e => setData({...data, password: e.target.value})}/>
                     </div>
                     <div className="col-12">

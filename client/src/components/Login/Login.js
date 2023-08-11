@@ -18,17 +18,15 @@ const Login = () => {
 
         axios.post(`${baseURL}/api/login`, values)
             .then(res => {
-                // if(res.data.status === "Record not found") {
-                //     setError(res.data.message) 
-                //     setTimeout(() => {
-                //         setError("");
-                //     }, 3000);
-                // }
-                // else if (res.data.status = "Success") navigate("/");
                 console.log(res);
             })
             .catch(err => {
-                console.log(err.response);
+                const {message} = err.response.data;
+                console.log(message);
+                setError(message);
+                setTimeout(() => {
+                    setError("");
+                }, 3000)
             })
     }
     
