@@ -37,11 +37,6 @@ const SignUp = () => {
             <div className='p-3 rounded w-50 border loginForm'>
                 <h2>Sign Up</h2>
                 <form onSubmit={handleSubmit}>
-                    {/* <div className='mb-3'>
-                        <label htmlFor="email"><strong>Email</strong></label>
-                        <input type="email" placeholder='Enter Email' name='email' 
-                        onChange={e => setValues({...values, email: e.target.value})} className='form-control rounded-0' autoComplete='off'/>
-                    </div> */}
                     <div className="col-12">
                         <label htmlFor="firstName" className="form-label">First Name</label>
                         <input minLength="5" required type="text" className="form-control" id="firstName" placeholder='First Name' autoComplete='off'

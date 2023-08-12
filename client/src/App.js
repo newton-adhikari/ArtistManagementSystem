@@ -6,6 +6,7 @@ import ManagerDashboard from "./components/Dashboard/ManagerDashboard";
 import ArtistDashboard from "./components/Dashboard/ArtistDashboard";
 import Home from "./components/Home/Home";
 import Users from "./components/Users/Users";
+import AddUser from "./components/Users/AddUser";
 import Artists from "./components/Artists/Artist";
 import Music from "./components/Music/Music";
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="users" element={<Users />} />
           <Route path="artists" element={<Artists />} />
           <Route path="music" element={<Music />} />
+          <Route path="createNewUser" element={<AddUser />} />
         </Route>
         <Route path="/manager" element={<ManagerDashboard />} />
         <Route path="/artist" element={<ArtistDashboard />} />
