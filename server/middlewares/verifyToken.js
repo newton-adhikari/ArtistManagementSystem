@@ -24,6 +24,7 @@ const verifyToken = (req, res, next) => {
 
         const query = "SELECT * FROM user where email = ?"
         con.query(query, [decoded.email], (err, result) => {
+            con.release();
             if (err) return res.status(500).json({status: "error", message: "unable to process query"});
 
             if(result.length === 0) return res.status(401).json({status: "error", message: "Unauthorized"});

@@ -19,7 +19,7 @@ signupRouter.post("/", (req, res) => {
 
             // change role is only available to super_admin
             connection.query(query, data, (err, result) => {
-                console.log(err);
+                connection.release();
                 if (err) return res.status(500).json({status: "error", message: `${err.message}`});
 
                 return res.status(201).json({status: "Success", message: "User created"});

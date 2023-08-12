@@ -1,2 +1,11 @@
 get http://localhost:33330/api/user/all
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjkxNzcxNDAxLCJleHAiOjE2OTE4NTc4MDF9.LGpy2gHH2BnusT4ce6QFaip30JdJPs8SoiwXHZDKDPU
+
+###
+put http://localhost:33330/api/user/update/5
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjkxNzcxNDAxLCJleHAiOjE2OTE4NTc4MDF9.LGpy2gHH2BnusT4ce6QFaip30JdJPs8SoiwXHZDKDPU
+Content-Type: application/json
+
+{
+    
+}
