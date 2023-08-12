@@ -1,3 +1,7 @@
-const ROLES_LIST = ["suer_admin", "artist_manager", "artist"];
+const ROLES_LIST = {
+    Artist: "artist",
+    Admin: "super_admin",
+    ArtistManager: "artist_manager"
+};
 
 module.exports = ROLES_LIST;

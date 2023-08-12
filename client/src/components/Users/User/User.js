@@ -1,63 +1,39 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { baseURL } from "../../service/constants";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState, useEffect } from "react";
 
-const AddUser = () => {
+const User = () => {
     const [data, setData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        phone: "",
-        dob: "",
-        gender: "m",
-        address: "",
-        role: "Artist"
+        name: "ADK",
+        comp: "Javra",
+        DOB: "3 sept",
+        emai: "adk@gjasfk.com",
+        address: "manmaiju ktm"
     })
 
-    const navigate = useNavigate();
-
-    const handleSubmit = event => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-
-        const token = JSON.parse(JSON.stringify(localStorage.getItem("token")));
-
-        const headers = {
-            Authorization: `Bearer ${token}`
-        }
-
-        axios.post(`${baseURL}/api/user/create`, data, { headers })
-             .then(res => {
-                // create a react toaster for created
-                toast.success("User Created!", {
-                    position: "top-right",
-                    autoClose: 3000,
-                });
-               
-                navigate("/admin");
-             })
-             .catch(err => {
-                if (err.response && err.response.data && err.response.data.message) {
-                    toast.error(`${err.response.data.message}`, {
-                        position: "top-right",
-                        autoClose: 3000,
-                    });
-                }
-             })
     }
-
     return (
+        // <div className="d-flex mt-5 justify-content-center align-items-center">
+        //     <div className="card w-75" style={{ width: '18rem' }}>
+        //         <div className="card-header">
+        //         Featured
+        //         </div>
+        //         <ul className="list-group list-group-flush">
+        //         <li className="list-group-item">Cras justo odio</li>
+        //         <li className="list-group-item">Dapibus ac facilisis in</li>
+        //         <li className="list-group-item">Vestibulum at eros</li>
+        //         </ul>
+        //     </div>
+        // </div>
         <div className='d-flex flex-column align-items-center pt-4'>
-        <h2 className="color-white">Add New</h2>
+        <h2 className="color-white">Update User</h2>
         <div className='p-3 rounded w-50 border'>
             <form onSubmit={handleSubmit}>
                 <div className="col-12">
                     <label htmlFor="firstName" className="form-label">First Name</label>
                     <input minLength="5" required type="text" className="form-control" id="firstName" placeholder='First Name' autoComplete='off'
-                    onChange={e => setData({...data, firstName: e.target.value})}/>
+                    value={data.name}
+                    onChange={e => setData({...data, name: e.target.value})}/>
                 </div>
                 <div className="col-12">
                     <label htmlFor="lastName" className="form-label">Last Name</label>
@@ -106,12 +82,13 @@ const AddUser = () => {
                     </select>
                 </div>
                 <div className="p-3 col-12 d-flex justify-content-center">
-                    <button type="submit" className="btn btn-primary">Create</button>
+                    <button type="submit" className="btn btn-primary">Update</button>
                 </div>
             </form>
         </div>
     </div>
+
     )
 }
 
-export default AddUser;
+export default User;

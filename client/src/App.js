@@ -9,6 +9,7 @@ import Users from "./components/Users/Users";
 import AddUser from "./components/Users/AddUser";
 import Artists from "./components/Artists/Artist";
 import Music from "./components/Music/Music";
+import User from "./components/Users/User/User";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/admin" element={<AdminDashboard />} >
           <Route path="" element={<Home />} />
           <Route path="users" element={<Users />} />
+          <Route path="user/:id" element={<User />} />
           <Route path="artists" element={<Artists />} />
           <Route path="music" element={<Music />} />
           <Route path="createNewUser" element={<AddUser />} />
