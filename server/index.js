@@ -5,6 +5,7 @@ const jwt              = require("jsonwebtoken");
 const cookieParser     = require("cookie-parser");
 const loginRouter      = require("./router/loginRouter");
 const signupRouter     = require("./router/signupRouter");
+const userRouter       = require("./router/userRouter");
 const PORT             = process.env.PORT || 33330;
 const app              = require("express")();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use("/api/login", loginRouter);
 app.use("/api/signup", signupRouter);
+app.use("/api/user", userRouter);
 
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`)
