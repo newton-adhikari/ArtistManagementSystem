@@ -11,6 +11,7 @@ import Artists from "./components/Artists/Artists";
 import Music from "./components/Music/Music";
 import User from "./components/Users/User/User";
 import AddArtist from "./components/Artists/AddArtist";
+import Artist from "./components/Artists/Artist/Artist";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="users" element={<Users />} />
           <Route path="user/:id" element={<User />} />
+          <Route path="artist/:id" element={<Artist />} />
           <Route path="artists" element={<Artists />} />
           <Route path="music" element={<Music />} />
           <Route path="createNewUser" element={<AddUser />} />

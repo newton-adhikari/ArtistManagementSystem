@@ -9,11 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const User = () => {
     const [data, setData] = useState(null);
     const [loading, setIsLoading] = useState(true);
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 6;
-    const totalPages = Math.ceil(data.length/itemsPerPage);
-    const currentIndex = (currentPage -1) * itemsPerPage;
-    const uptoIndex = currentIndex + itemsPerPage;
 
     const id = useParams().id;
     const token = JSON.parse(JSON.stringify(localStorage.getItem("token")));

@@ -16,7 +16,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzd
 Content-Type: application/json
 
 {
-    "name": "Mika Singh",
+    "name": "Sunny Singh",
     "dob": "08/11/1980",
     "gender": "m",
     "address": "delhi",
@@ -29,3 +29,20 @@ get http://localhost:33330/api/artist/all
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
 
 ###
+
+put http://localhost:33330/api/artist/update/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+Content-Type: application/json
+
+{
+    "address": "49 Manmaiju Street",
+    "albums": 23
+}
+
+###
+DELETE http://localhost:33330/api/artist/delete/8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+
+###
+get http://localhost:33330/api/artist/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
