@@ -128,7 +128,9 @@ userRouter.get("/:id", verifyToken, (req, res) => {
                 lastName: toSend.last_name, 
                 email: toSend.email, 
                 phone: toSend.phone, 
-                dob: new Date(toSend.dob).toISOString().split('T')[0],
+                dob: toSend.dob !== "0000-00-00 00:00:00" 
+                    ? new Date(toSend.dob).toISOString().split('T')[0] 
+                    : "",
                 gender: toSend.gender, 
                 address: toSend.address, 
                 role: toSend["role-type"] === "super_admin" 
