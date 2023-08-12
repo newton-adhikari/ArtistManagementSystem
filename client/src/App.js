@@ -7,9 +7,10 @@ import ArtistDashboard from "./components/Dashboard/ArtistDashboard";
 import Home from "./components/Home/Home";
 import Users from "./components/Users/Users";
 import AddUser from "./components/Users/AddUser";
-import Artists from "./components/Artists/Artist";
+import Artists from "./components/Artists/Artists";
 import Music from "./components/Music/Music";
 import User from "./components/Users/User/User";
+import AddArtist from "./components/Artists/AddArtist";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="artists" element={<Artists />} />
           <Route path="music" element={<Music />} />
           <Route path="createNewUser" element={<AddUser />} />
+          <Route path="createNewArtist" element={<AddArtist />} />
         </Route>
         <Route path="/manager" element={<ManagerDashboard />} />
         <Route path="/artist" element={<ArtistDashboard />} />

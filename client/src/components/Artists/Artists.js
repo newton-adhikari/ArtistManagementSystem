@@ -5,15 +5,14 @@ import { baseURL } from "../../service/constants";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
-const Users = () => {
+const Artist = () => {
     const navigate = useNavigate();
 
-    const [users, setUsers] = useState([]);
+    const [artists, setArtists] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
-    const totalPages = Math.ceil(users.length/itemsPerPage);
+    const totalPages = Math.ceil(artists.length/itemsPerPage);
     const currentIndex = (currentPage -1) * itemsPerPage;
     const uptoIndex = currentIndex + itemsPerPage;
 
@@ -23,11 +22,11 @@ const Users = () => {
             Authorization: `Bearer ${token}`
         }
 
-        const endpoint = `${baseURL}/api/user/all`;
+        const endpoint = `${baseURL}/api/artist/all`;
 
         axios.get(endpoint, { headers })
              .then(res => {
-                setUsers(res.data);
+                setArtists(res.data);
                 setIsLoading(false);
              })
              .catch(err => {
@@ -36,7 +35,7 @@ const Users = () => {
     }, [])
 
     const handleClick = () => {
-        navigate("/admin/createNewUser");
+        navigate("/admin/createNewArtist");
     }
 
     const handleDelete = id => {
@@ -49,7 +48,7 @@ const Users = () => {
             Authorization: `Bearer ${token}`
         }
 
-        axios.delete(`${baseURL}/api/user/delete/${id}`, { headers })
+        axios.delete(`${baseURL}/api/artist/delete/${id}`, { headers })
              .then(res => {
                 if (res.data && res.data.message) {
                     toast.success(res.data.message, {
@@ -57,37 +56,43 @@ const Users = () => {
                         autoClose: 3000,
                     });
                  }
-                setUsers(users.filter(u => u.id !== id));
+                setArtists(artists.filter(u => u.id !== id));
              })
              .catch(err => {
                 console.log(err)
              })
     }
-
-    const loadedComponent = () => 
-        (<div className="mt-3">
+    return (
+        <div className="px-3 py-3">
+            <div className="d-flex justify-content-center">
+                    <h4>Artists List</h4>
+            </div>
+            <div className="d-flex justify-content-end">
+                <button onClick={handleClick} className="btn btn-success">Add Artist</button>
+            </div>
+            <div className="mt-3">
                 <table className="table">
                     <thead>
                         <tr>
                             <th>FullName</th>
-                            <th>Email</th>
-                            <th>Phone</th>
                             <th>DOB</th>
                             <th>Gender</th>
                             <th>Address</th>
+                            <th>First Released</th>
+                            <th>Albums</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {users.slice(currentIndex, uptoIndex).map(u => { // pagination
-                            const route = `/admin/user/${u.id}`;
+                        {artists.slice(currentIndex, uptoIndex).map(u => { // pagination
+                            const route = `/admin/artist/${u.id}`;
                             return <tr key={u.id}>
-                                <td>{u.fullName}</td>
-                                <td>{u.email}</td>
-                                <td>{u.phone}</td>
+                                <td>{u.name}</td>
                                 <td>{u.dob}</td>
-                                <td>{u.gender === "m" ? "Male" : (u.gender === "" ? "NA" : "Female")}</td>
+                                <td>{(u.gender === "m" ? "Male": (u.gender === "f" ? "Female" : ""))}</td>
                                 <td>{u.address}</td>
+                                <td>{u["first_release_year"]}</td>
+                                <td>{u["no_of_albums_released"]}</td>
                                 <td className="d-flex">
                                     <Link to={route} className="btn btn-sm btn-primary">Edit</Link>
                                     <button onClick={() => handleDelete(u.id)} className="btn btn-sm btn-danger">delete</button>
@@ -109,21 +114,8 @@ const Users = () => {
                 </div>
 
             </div>
-    );
-
-    return (
-        <div className="px-3 py-3">
-            <div className="d-flex justify-content-center">
-                    <h4>Users List</h4>
-            </div>
-            <div className="d-flex justify-content-end">
-                <button onClick={handleClick} className="btn btn-success">Add user</button>
-            </div>
-            {
-                isLoading ? <div className="d-flex b-shadow justfiy-content-center">Loading....</div>: loadedComponent()
-            }
         </div>
     )
 }
 
-export default Users;
+export default Artist

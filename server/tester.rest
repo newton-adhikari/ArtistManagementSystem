@@ -9,3 +9,23 @@ Content-Type: application/json
 {
     
 }
+
+###
+post http://localhost:33330/api/artist/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+Content-Type: application/json
+
+{
+    "name": "Mika Singh",
+    "dob": "08/11/1980",
+    "gender": "m",
+    "address": "delhi",
+    "firstReleased": "1998",
+    "albums": 28
+}
+
+###
+get http://localhost:33330/api/artist/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+
+###

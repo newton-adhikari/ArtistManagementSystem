@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../../service/constants";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./Login.css";
 
 const Login = () => {
@@ -27,12 +29,24 @@ const Login = () => {
                 else if (role === 'artist') navigate('/artist');
             })
             .catch(err => {
-                // const {message} = err.response.data;
-                // console.log(message);
-                // setError(message);
-                // setTimeout(() => {
-                //     setError("");
-                // }, 3000)
+                if(err.response && err.response.status === 401 && err.response.data.message) {
+                    toast.error(err.response.data.message, {
+                        position: "top-right",
+                        autoClose: 3000,
+                    });
+                    return;
+                }
+                else if (err.response && err.response.status === 500) {
+                    toast.error("Service Offline", {
+                        position: "top-right",
+                        autoClose: 3000,
+                    }); 
+                    return;
+                }
+                toast.error("Error Occured!!", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });   
             })
     }
     
