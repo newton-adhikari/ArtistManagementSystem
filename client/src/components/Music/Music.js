@@ -13,8 +13,7 @@ const Music = () => {
     const [show, setShow] = useState(false);  
     const modalClose = () => setShow(false);  
     const modalShow = () => setShow(true);  
-
-
+    const [loading, isLoading] = useState(true);
     const [music, setMusic] = useState([]);
     const [currentDataIndex, setCurrentDataIndex] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,7 +32,7 @@ const Music = () => {
 
         axios.get(endpoint, { headers })
              .then(res => {
-                console.log(res);
+                isLoading(false);
                 setMusic(res.data);
              })
              .catch(err => {
@@ -94,6 +93,7 @@ const Music = () => {
 
     }
 
+    console.log(music);
     const showModal = i => {
         return (
             <Modal show={show} onHide={modalClose}>  
@@ -105,26 +105,31 @@ const Music = () => {
                             <div className="col-12">
                                 <label htmlFor="title" className="form-label">Artist</label>
                                 <input disabled minLength="3" required type="text" className="form-control" id="title" placeholder='Artist Name' autoComplete='off'
-                                value={music[i].name}/>
+                                value={music && music[i] && music[i].name ? music[i].name : ''}/>
                             </div>
                             <div className="col-12">
                                 <label htmlFor="title" className="form-label">Title</label>
                                 <input disabled minLength="5" required type="text" className="form-control" id="title" placeholder='Title' autoComplete='off'
-                                value={music[i].title}/>
+                                value={music && music[i] && music[i].title ? music[i].title : ''}/>
                             </div>
                             <div className="col-12">
                                 <label htmlFor="albumName" className="form-label">AlbumName</label>
                                 <input minLength="3" required type="text" className="form-control" id="albumName" placeholder='Album Name' autoComplete='off'
-                                value={music[i].album_name}
+                                value={music && music[i] && music[i].album_name ? music[i].album_name : ''}
                                 onChange={e => {
-                                    const current = {...music[i]};
-                                    current.album_name = e.target.value;
-                                    setMusic(m => m.id !== i ? m : current)
-                                }}/>
+                                    const newMusic = music.map((item, index) => {
+                                        if (index === i) {
+                                          return { ...item, album_name: e.target.value };
+                                        }
+                                        return item;
+                                      });
+                                    
+                                      setMusic(newMusic);
+                                    }}/>
                             </div>
                             <div className="col-12">
                                 <label htmlFor="inputGenre" className="form-label">Genre</label>
-                                <select disabled value={music[i].genre} className="form-control" id="inputGenre" name="genre">
+                                <select disabled value={music && music[i] && music[i].genre ? music[i].genre : ''} className="form-control" id="inputGenre" name="genre">
                                     <option value="rnb">Rhythm and Blues</option>
                                     <option value="country">Country</option>
                                     <option value="classic">Classic</option>
@@ -142,6 +147,12 @@ const Music = () => {
         )
     }
 
+    if (loading) {
+        return <div className="d-flex justify-content-center spinner-border" role="status">
+            <span className="sr-only">Loading...</span>
+      </div>
+    }
+
     return (
         <div className="px-3 py-3">
             <div className="d-flex justify-content-center">
@@ -150,9 +161,7 @@ const Music = () => {
             <div className="d-flex justify-content-end">
                 <button onClick={handleClick} className="btn btn-success">Add Music</button>
             </div>
-                {showModal(currentDataIndex)}
-            <div>
-            </div>
+            <div>{showModal(currentDataIndex)}</div>
             <div className="mt-3">
                 <table className="table">
                     <thead>
@@ -172,7 +181,10 @@ const Music = () => {
                                 <td>{u.album_name}</td>
                                 <td>{(u.genre === "rnb" ? "Rythm and Blues": u.genre)}</td>
                                 <td className="d-flex">
-                                    <button onClick={() => setCurrentDataIndex(u.id)} className="btn btn-sm btn-primary">Edit</button>
+                                    <button onClick={() => {
+                                        setCurrentDataIndex(u.id);
+                                        modalShow();
+                                    }} className="btn btn-sm btn-primary">Edit</button>
                                     <button onClick={() => handleDelete(u.id)} className="btn btn-sm btn-danger">delete</button>
                                 </td>
                             </tr>

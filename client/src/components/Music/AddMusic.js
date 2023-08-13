@@ -22,11 +22,9 @@ const AddMusic = () => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = event => {
+    const handleDialog = event => {
         event.preventDefault();
         showArtists();
-
-        formSubmission();
     }
 
     const formSubmission = () => {
@@ -96,11 +94,6 @@ const AddMusic = () => {
         <h2 className="color-white">Add New</h2>
         <div className='p-3 rounded w-50 border'>
         <div className="p-4">  
-            <div className="d-flex justify-content-end">
-                    <Button className="d-flex justify-content-end" variant="success" onClick={modalShow}>  
-                        Add Music  
-                    </Button> 
-                </div>
                 <Modal show={show} onHide={modalClose}>  
                     <Modal.Header closeButton>  
                         <Modal.Title>Choose Artist</Modal.Title>  
@@ -134,11 +127,13 @@ const AddMusic = () => {
                     </Modal.Footer>  
                 </Modal>  
             </div>  
-            <form onSubmit={handleSubmit}>
-                <div className="col-12">
-                    <label htmlFor="title" className="form-label">Artist</label>
+            <form onSubmit={formSubmission}>
+                <div className="input-group col-12">
                     <input minLength="3" required type="text" className="form-control" id="title" placeholder='Artist Name' autoComplete='off'
                     onChange={e => setData({...data, artist: e.target.value})}/>
+                      <div className="input-group-append">
+                        <span className="input-group-text"><button onClick={handleDialog} className="btn"><i className="bi bi-search"></i></button></span>
+                     </div>
                 </div>
                 <div className="col-12">
                     <label htmlFor="title" className="form-label">Title</label>

@@ -46,3 +46,35 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzd
 ###
 get http://localhost:33330/api/artist/2
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+
+###
+get http://localhost:33330/api/artist/getByName?name=Mika
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+
+###
+post http://localhost:33330/api/music/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+Content-Type: application/json
+
+{
+    "artist_id": 3,
+    "title": "Seal",
+    "album_name": "The Balti World",
+    "genre": "rock"
+}
+###
+get http://localhost:33330/api/music/all
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+
+###
+put http://localhost:33330/api/music/update/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+Content-Type: application/json
+
+{
+    "album_name": "Evergreen Cassetes"
+}
+
+###
+delete http://localhost:33330/api/music/delete/7
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w

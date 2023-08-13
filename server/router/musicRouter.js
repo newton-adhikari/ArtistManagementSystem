@@ -1,9 +1,10 @@
-const artistRouter              = require("express").Router();
+const musicRouter               = require("express").Router();
 const { verifyToken }           = require("../middlewares/verifyToken");
 const db                        = require("../db/db");
 const { getCurrentDateTime }    = require("../utils/currentDate");
+const acceptedGenres            = require("../utils/acceptedGenres");
 
-artistRouter.get("/all", verifyToken, (req, res) => {  
+musicRouter.get("/all", verifyToken, (req, res) => {  
     console.log("in the /all route");  
     // verify the token and get the data back
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
@@ -11,7 +12,7 @@ artistRouter.get("/all", verifyToken, (req, res) => {
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
 
-        const query = "SELECT * from artist";
+        const query = "SELECT music.*, artist.name FROM music JOIN artist ON music.artist_id = artist.id";
         con.query(query, (err, result) => {
             con.release();
             if (err) {
@@ -23,41 +24,27 @@ artistRouter.get("/all", verifyToken, (req, res) => {
     })
 })
 
-artistRouter.get("/getByName", verifyToken, (req, res) => {  
-    // verify the token and get the data back
+musicRouter.post("/create", verifyToken, (req, res) => {
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
-    const name = "%" + req.query.name + "%";
+    const { artist_id, title, album_name, genre } = req.body;
+
+    if (!artist_id) return res.status(400).json({status: "error", message: "No artist selected"});
+
+    if(!acceptedGenres.includes(genre)) return res.status(400).json({status: "error", message: "Unknown Genre"});
+
+    // get connection to database
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
 
-        const query = "SELECT * FROM artist WHERE LOWER(artist.name) LIKE ?";
-        con.query(query, [name.toLowerCase()], (err, result) => {
-            con.release();
-            if (err) {
-                console.log(err)
-                return res.status(500).json({status: "error", message: "Unable to prepare query"});
-            }
+        // check to see if title and album name exists in the db.
+        query = "SELECT title, album_name FROM music WHERE music.title = ? AND music.album_name = ?";
+        con.query(query, [title, album_name], (err, result) => {
+            if (result.length !== 0) return res.status(403).json({status: "error", message:"Title and album_name already exist"});
 
-            console.log(name);
-            return res.json(result);
-        });
-    })
-})
-
-artistRouter.post("/create", verifyToken, (req, res) => {
-    if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
-
-    const { name, dob, gender, address, firstReleased, albums} = req.body;
-    
-    // get connection to database;
-    db.getConnection((err, con) => {
-        if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
-
-
-            query = "INSERT INTO artist (`name`, `dob`, `gender`, `address`, `first_release_year`, `no_of_albums_released`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            query = "INSERT INTO music (`artist_id`, `title`, `album_name`, `genre`, `created_at`, `updated_at`) VALUES (?, ?, ?, ?, ?, ?)";
             
-            con.query(query, [name, new Date(dob), gender, address, firstReleased, albums, (req.user.createdAt ? req.user.createdAt : getCurrentDateTime()), getCurrentDateTime()], (err, result) => {
+            con.query(query, [artist_id, title, album_name, genre, getCurrentDateTime(), getCurrentDateTime()], (err, result) => {
                 con.release();
                 console.log(err);
                 if (err) return res.status(500).json({status: "error", message: "Database error"});
@@ -66,30 +53,34 @@ artistRouter.post("/create", verifyToken, (req, res) => {
             })
         })
     })
+})
 
-artistRouter.put("/update/:id", verifyToken, (req, res) => {
+musicRouter.put("/update/:id", verifyToken, (req, res) => {
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
     const id                 = req.params.id;
-    const { address} = req.body
+    const { album_name }     = req.body;
     
-    console.log()
+    if(Object.keys(req.body).length > 1) return res.status(400).json({status: "error", message: "Can only updated Album Name"});
+    if (!album_name) return res.status(400).json({status: "error", message: "Can only updated Album Name"});
+
+    console.log(album_name)
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
-        const query = "UPDATE artist set `address` = ?, `no_of_albums_released` = ? WHERE id = " + id ;
-        con.query(query, [address, req.body["no_of_albums_released"]], (err, result) => {
+        const query = "UPDATE music set `album_name` = ?, `updated_at` = ? WHERE id = " + id ; // change updated at
+        con.query(query, [album_name, getCurrentDateTime()], (err, result) => {
             con.release();
 
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
             console.log(result);
-            return res.status(200).json({ status: "success", message: "User updated successfully" });
+            return res.status(200).json({ status: "success", message: "Album Name updated successfully" });
         })
     })
 })
 
-artistRouter.delete("/delete/:id", verifyToken, (req, res) => {
+musicRouter.delete("/delete/:id", verifyToken, (req, res) => {
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
     const id = req.params.id;
@@ -98,23 +89,23 @@ artistRouter.delete("/delete/:id", verifyToken, (req, res) => {
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
-        const query = "DELETE FROM artist WHERE id = " + id ;
+        const query = "DELETE FROM music WHERE id = " + id ;
         con.query(query, (err, result) => {
             con.release();
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
             console.log("deleted");
-            return res.status(200).json({status: "success", message: "User deleted successfully"});
+            return res.status(200).json({status: "success", message: "Music deleted successfully"});
         })
     })
 })
 
-artistRouter.get("/:id", verifyToken, (req, res) => {
+musicRouter.get("/:id", verifyToken, (req, res) => {
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
     const id = req.params.id;
     
-    const query = "SELECT * FROM artist WHERE artist.id = ?";
+    const query = "SELECT * FROM music WHERE artist.id = ?";
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
 
@@ -133,4 +124,4 @@ artistRouter.get("/:id", verifyToken, (req, res) => {
     })
 })
 
-module.exports = artistRouter;
+module.exports = musicRouter;
