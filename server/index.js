@@ -8,6 +8,7 @@ const signupRouter     = require("./router/signupRouter");
 const userRouter       = require("./router/userRouter");
 const artistRouter     = require("./router/artistRouter");
 const musicRouter      = require("./router/musicRouter");
+const countRecords     = require("./router/countRecords");
 const PORT             = process.env.PORT || 33330;
 const app              = require("express")();
 
@@ -20,6 +21,7 @@ app.use("/api/signup", signupRouter);
 app.use("/api/user", userRouter);
 app.use("/api/artist", artistRouter);
 app.use("/api/music", musicRouter);
+app.use("/api/count", countRecords);
 
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`)

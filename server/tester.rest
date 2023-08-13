@@ -78,3 +78,7 @@ Content-Type: application/json
 ###
 delete http://localhost:33330/api/music/delete/7
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+
+###
+get http://localhost:33330/api/count
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
