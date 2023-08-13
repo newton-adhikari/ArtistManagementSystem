@@ -69,7 +69,7 @@ const Music = () => {
              })
     } 
 
-    const handleSubmit = (event) => {
+    const handleSubmit = () => {
         const token = JSON.parse(JSON.stringify(localStorage.getItem("token")));
 
         const headers = {
@@ -93,7 +93,6 @@ const Music = () => {
 
     }
 
-    console.log(music);
     const showModal = i => {
         return (
             <Modal show={show} onHide={modalClose}>  
@@ -141,7 +140,7 @@ const Music = () => {
                     </Modal.Body>  
                     <Modal.Footer>  
                         <Button variant="secondary" onClick={modalClose}>Close</Button>  
-                        <Button onClick={handleSubmit} variant="primary">Add</Button>  
+                        <Button onClick={handleSubmit} variant="primary">Update</Button>  
                     </Modal.Footer>  
                 </Modal>
         )
@@ -174,7 +173,7 @@ const Music = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {music.slice(currentIndex, uptoIndex).map(u => {
+                        {music.slice(currentIndex, uptoIndex).map((u, index) => {
                             return <tr key={u.id}>
                                 <td>{u.name}</td>
                                 <td>{u.title}</td>
@@ -182,7 +181,7 @@ const Music = () => {
                                 <td>{(u.genre === "rnb" ? "Rythm and Blues": u.genre)}</td>
                                 <td className="d-flex">
                                     <button onClick={() => {
-                                        setCurrentDataIndex(u.id);
+                                        setCurrentDataIndex((currentPage -1) * itemsPerPage + index);
                                         modalShow();
                                     }} className="btn btn-sm btn-primary">Edit</button>
                                     <button onClick={() => handleDelete(u.id)} className="btn btn-sm btn-danger">delete</button>

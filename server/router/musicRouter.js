@@ -31,9 +31,11 @@ musicRouter.post("/create", verifyToken, (req, res) => {
 
     if (!artist_id) return res.status(400).json({status: "error", message: "No artist selected"});
 
+    console.log(req.body);
     if(!acceptedGenres.includes(genre)) return res.status(400).json({status: "error", message: "Unknown Genre"});
 
     // get connection to database
+    console.log(req.body.genre);
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
 
@@ -46,7 +48,7 @@ musicRouter.post("/create", verifyToken, (req, res) => {
             
             con.query(query, [artist_id, title, album_name, genre, getCurrentDateTime(), getCurrentDateTime()], (err, result) => {
                 con.release();
-                console.log(err);
+                console.log(result);
                 if (err) return res.status(500).json({status: "error", message: "Database error"});
                 
                 return res.status(201).json({status: "success", message: "created"}); // res.status(200).end();

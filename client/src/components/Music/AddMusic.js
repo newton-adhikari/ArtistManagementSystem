@@ -9,10 +9,10 @@ import 'react-toastify/dist/ReactToastify.css';
 const AddMusic = () => {
     const [data, setData] = useState({
         artist_id: 0,
-        artist: "",
+        name: "",
         title: "",
         album_name: "",
-        genre: ""
+        genre: "rnb"
     });
 
     const [artists, setArtists] = useState([]);
@@ -22,12 +22,13 @@ const AddMusic = () => {
 
     const navigate = useNavigate();
 
-    const handleDialog = event => {
-        event.preventDefault();
+    const handleDialog = () => {
         showArtists();
     }
 
-    const formSubmission = () => {
+    const formSubmission = (event) => {
+        event.preventDefault();
+
         const token = JSON.parse(JSON.stringify(localStorage.getItem("token")));
 
         const headers = {
@@ -37,7 +38,6 @@ const AddMusic = () => {
         axios.post(`${baseURL}/api/music/create`, data, { headers })
              .then(res => {
                 // create a react toaster for created
-                console.log(res);
                 toast.success("Music Created!", {
                     position: "top-right",
                     autoClose: 3000,
@@ -84,9 +84,9 @@ const AddMusic = () => {
             })
     }
 
-    const setArtistId = id => {
+    const setArtistId = (id, name) => {
         modalClose();
-        setData({...data, artist_id: id})
+        setData({...data, artist_id: id, name});
     }
 
     return (
@@ -109,8 +109,8 @@ const AddMusic = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {artists.map(u => { // pagination
-                                    return <tr onDoubleClick={() => setArtistId(u.id)} key={u.id}>
+                                {artists.map(u => { 
+                                    return <tr onDoubleClick={() => setArtistId(u.id, u.name)} key={u.id}>
                                         <td>{u.name}</td>
                                         <td>{u.dob}</td>
                                         <td>{(u.gender === "m" ? "Male": (u.gender === "f" ? "Female" : ""))}</td>
@@ -129,15 +129,21 @@ const AddMusic = () => {
             </div>  
             <form onSubmit={formSubmission}>
                 <div className="input-group col-12">
-                    <input minLength="3" required type="text" className="form-control" id="title" placeholder='Artist Name' autoComplete='off'
-                    onChange={e => setData({...data, artist: e.target.value})}/>
+                    <input minLength="3" required type="text" className="form-control" id="title" placeholder='Search Artist' autoComplete='off'
+                     onChange={e => data.artist = e.target.value}
+                    />
                       <div className="input-group-append">
                         <span className="input-group-text"><button onClick={handleDialog} className="btn"><i className="bi bi-search"></i></button></span>
                      </div>
                 </div>
                 <div className="col-12">
+                    <label htmlFor="artistName" className="form-label">Title</label>
+                    <input minLength="5" disabled type="text" className="form-control" id="artistName" placeholder='Artist Name' autoComplete='off'
+                    value={data.name}/>
+                </div>
+                <div className="col-12">
                     <label htmlFor="title" className="form-label">Title</label>
-                    <input minLength="5" required type="text" className="form-control" id="title" placeholder='Title' autoComplete='off'
+                    <input minLength="4" required type="text" className="form-control" id="title" placeholder='Title' autoComplete='off'
                     onChange={e => setData({...data, title: e.target.value})}/>
                 </div>
                 <div className="col-12">
@@ -147,7 +153,7 @@ const AddMusic = () => {
                 </div>
                 <div className="col-12">
                     <label htmlFor="inputGenre" className="form-label">Genre</label>
-                    <select className="form-control" id="inputGenre" name="genre" onChange={e => setData({...data, gender: e.target.value})}>
+                    <select className="form-control" id="inputGenre" name="genre" onChange={e => setData({...data, genre: e.target.value})}>
                         <option value="rnb">Rhythm and Blues</option>
                         <option value="country">Country</option>
                         <option value="classic">Classic</option>
