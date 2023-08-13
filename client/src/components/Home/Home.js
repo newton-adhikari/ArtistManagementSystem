@@ -4,9 +4,11 @@ import { baseURL } from "../../service/constants";
 
 const Home = () => {
     const [totalRecords, setTotalRecords] = useState(null);
-    
+    const [loginTime, setLoginTime] = useState();
+
     useEffect(() => {
         const token = JSON.parse(JSON.stringify(localStorage.getItem("token")));
+        const tlogin = JSON.parse(JSON.stringify(localStorage.getItem("loginTime")));
 
         const headers = {
             Authorization: `Bearer ${token}`
@@ -15,6 +17,7 @@ const Home = () => {
         axios.get(`${baseURL}/api/count`, { headers })
              .then(res => {
                 setTotalRecords(res.data);
+                setLoginTime(tlogin);
              })
              .catch(err => {
                 console.log(err);
@@ -40,6 +43,10 @@ const Home = () => {
                     <hr />
                     <p>Total: {totalRecords ? totalRecords.musicRecords: ""}</p>
                 </div>
+            </div>
+            <div className="p-3 d-flex justify-content-around">
+                <p className="p-3 display-6 lead text-center">Last Login: {loginTime}</p>
+                <button className="btn btn-lg btn-danger">Logout</button>
             </div>
         </div>
     )

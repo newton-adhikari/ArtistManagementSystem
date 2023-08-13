@@ -73,7 +73,7 @@ artistRouter.put("/update/:id", verifyToken, (req, res) => {
     const id                 = req.params.id;
     const { address} = req.body
     
-    console.log()
+    console.log(req.body)
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
@@ -83,7 +83,6 @@ artistRouter.put("/update/:id", verifyToken, (req, res) => {
 
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
-            console.log(result);
             return res.status(200).json({ status: "success", message: "User updated successfully" });
         })
     })
@@ -98,10 +97,10 @@ artistRouter.delete("/delete/:id", verifyToken, (req, res) => {
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
-        const query = "DELETE FROM artist WHERE id = " + id ;
+        const query = "DELETE FROM artist WHERE artist.id = " + id ;
         con.query(query, (err, result) => {
             con.release();
-            if (err) return res.status(500).json({status: "error", message: "Database error"});
+            if (err) return res.status(500).json({status: "error", message: "Record of artist exists in music table first delete that."});
 
             console.log("deleted");
             return res.status(200).json({status: "success", message: "User deleted successfully"});

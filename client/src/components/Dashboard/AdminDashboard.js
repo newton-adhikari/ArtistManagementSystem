@@ -3,6 +3,7 @@ import "bootstrap-icons/font/bootstrap-icons.min.css";
 import { useState , useEffect} from "react";
 
 const AdminDashboard = () => {
+    const userRole = JSON.parse(JSON.stringify(localStorage.getItem("role")));
     const [name, setName] = useState("");
 
     useEffect(() => {

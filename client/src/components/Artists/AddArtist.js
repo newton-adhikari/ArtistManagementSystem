@@ -15,6 +15,8 @@ const AddArtist = () => {
         albums: 0,
     })
 
+    const userRole = JSON.parse(JSON.stringify(localStorage.getItem("role")));
+
     const navigate = useNavigate();
 
     const handleSubmit = event => {
@@ -34,8 +36,8 @@ const AddArtist = () => {
                     autoClose: 3000,
                 });
                
-                navigate("/admin/artists");
-             })
+                navigate(`/${userRole}/artists`);
+            })
              .catch(err => {
                 if (err.response && err.response.data && err.response.data.message) {
                     toast.error(`${err.response.data.message}`, {

@@ -31,8 +31,16 @@ function App() {
           <Route path="createNewArtist" element={<AddArtist />} />
           <Route path="createNewMusic" element={<AddMusic />} />
         </Route>
-        <Route path="/manager" element={<ManagerDashboard />} />
-        <Route path="/artist" element={<ArtistDashboard />} />
+        <Route path="/manager" element={<ManagerDashboard />} >
+          <Route path="artists" element={<Artists />} />
+          <Route path="music" element={<Music />} />
+          <Route path="createNewArtist" element={<AddArtist />} />
+          <Route path="artist/:id" element={<Artist />} />
+        </Route>
+        <Route path="/artist" element={<ArtistDashboard />} >
+          <Route path="artists" element={<Artists />} />
+          <Route path="music" element={<Music />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

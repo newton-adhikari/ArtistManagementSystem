@@ -12,8 +12,16 @@ const Login = () => {
         password: {}
     });
 
+    const setUserRole = JSON.parse(JSON.stringify(localStorage.getItem("role")));
+
     const [error, setError] = useState("");
     const navigate = useNavigate();
+
+    const getCurrentTime = () => {
+        const today = new Date();
+        const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        return time;
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,11 +30,14 @@ const Login = () => {
             .then(res => {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("name", res.data.firstName);
-                const role = res.data.role;
+                localStorage.setItem("loginTime", getCurrentTime());
 
-                if (role === 'super_admin') navigate(`/admin`);
-                else if (role === 'manager') navigate('/manager');
-                else if (role === 'artist') navigate('/artist');
+                let role = res.data.role;
+                if (role === "artist_manager") role = "manager";
+                localStorage.setItem("role", role);
+
+                if (role === 'super_admin' || role === "admin") navigate(`/admin`);
+                else navigate(`/${role}`);
             })
             .catch(err => {
                 if(err.response && err.response.status === 401 && err.response.data.message) {

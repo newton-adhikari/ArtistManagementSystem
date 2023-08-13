@@ -1,3 +1,19 @@
+post http://localhost:33330/api/user/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6ImFydGlzdCIsImlhdCI6MTY5MTg1NjIwOCwiZXhwIjoxNjkxOTQyNjA4fQ.SB-YNLRx-EjY7L4e68_wLNsHJQoS5G77Hr0_X6aUN-w
+Content-Type: application/json
+
+{
+    "firstName": "admin",
+    "lastName": "admin",
+    "email": "admin",
+    "password": "artist",
+    "phone": "admin",
+    "dob": "08/11/2000",
+    "gender": "m",
+    "address": "admin",
+    "role": "Admin"
+}
+###
 get http://localhost:33330/api/user/all
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdXBlcmFkbWluIiwiZW1haWwiOiJzdXBlcmFkbWluQHN1cGVyYWRtaW4uY29tIiwicm9sZSI6InN1cGVyX2FkbWluIiwiaWF0IjoxNjkxNzcxNDAxLCJleHAiOjE2OTE4NTc4MDF9.LGpy2gHH2BnusT4ce6QFaip30JdJPs8SoiwXHZDKDPU
 

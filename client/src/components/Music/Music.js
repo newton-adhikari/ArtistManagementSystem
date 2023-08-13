@@ -4,10 +4,12 @@ import axios from "axios";
 import { baseURL } from "../../service/constants";
 import { toast } from 'react-toastify';
 import {Modal, Button} from 'react-bootstrap';  
+import { artistOrAdmin } from "../../service/rolesChecker";
 import 'react-toastify/dist/ReactToastify.css';
 
 
 const Music = () => {
+    const userRole = JSON.parse(JSON.stringify(localStorage.getItem("role")));
     const navigate = useNavigate();
 
     const [show, setShow] = useState(false);  
@@ -158,7 +160,11 @@ const Music = () => {
                 <h4>Music List</h4>
             </div>
             <div className="d-flex justify-content-end">
-                <button onClick={handleClick} className="btn btn-success">Add Music</button>
+                {
+                    artistOrAdmin(userRole)
+                        ? <button onClick={handleClick} className="btn btn-success">Add Music</button>
+                        : ""
+                }
             </div>
             <div>{showModal(currentDataIndex)}</div>
             <div className="mt-3">
@@ -169,7 +175,7 @@ const Music = () => {
                             <th>Title</th>
                             <th>Album</th>
                             <th>Genre</th>
-                            <th>Action</th>
+                            {artistOrAdmin(userRole) ? <th>Action</th> : ""}
                         </tr>
                     </thead>
                     <tbody>
@@ -179,13 +185,18 @@ const Music = () => {
                                 <td>{u.title}</td>
                                 <td>{u.album_name}</td>
                                 <td>{(u.genre === "rnb" ? "Rythm and Blues": u.genre)}</td>
-                                <td className="d-flex">
-                                    <button onClick={() => {
-                                        setCurrentDataIndex((currentPage -1) * itemsPerPage + index);
-                                        modalShow();
-                                    }} className="btn btn-sm btn-primary">Edit</button>
-                                    <button onClick={() => handleDelete(u.id)} className="btn btn-sm btn-danger">delete</button>
-                                </td>
+                                {
+                                    artistOrAdmin(userRole)
+                                        ? (
+                                            <td className="d-flex">
+                                                <button onClick={() => {
+                                                    setCurrentDataIndex((currentPage -1) * itemsPerPage + index);
+                                                    modalShow();
+                                                }} className="btn btn-sm btn-primary">Edit</button>
+                                                <button onClick={() => handleDelete(u.id)} className="btn btn-sm btn-danger">delete</button>
+                                            </td>
+                                        ): ""
+                                }
                             </tr>
                         })}
                     </tbody>

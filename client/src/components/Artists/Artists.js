@@ -3,9 +3,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../../service/constants";
 import { toast } from 'react-toastify';
+import { superAdminOrAdmin, managerOrAdmin } from "../../service/rolesChecker";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Artist = () => {
+    const userRole = JSON.parse(JSON.stringify(localStorage.getItem("role")));
+
     const navigate = useNavigate();
 
     const [artists, setArtists] = useState([]);
@@ -35,7 +38,7 @@ const Artist = () => {
     }, [])
 
     const handleClick = () => {
-        navigate("/admin/createNewArtist");
+        navigate(`/${userRole}/createNewArtist`);
     }
 
     const handleDelete = id => {
@@ -59,18 +62,30 @@ const Artist = () => {
                 setArtists(artists.filter(u => u.id !== id));
              })
              .catch(err => {
-                console.log(err)
+                if (err.response && err.response.data && err.response.data.message) {
+                    toast.error(`${err.response.data.message}`, {
+                        position: "top-right",
+                        autoClose: 3000,
+                    });
+                }
              })
     }
 
+    console.log(managerOrAdmin(userRole));
+    console.log(userRole);
     return (
         <div className="px-3 py-3">
             <div className="d-flex justify-content-center">
                     <h4>Artists List</h4>
             </div>
-            <div className="d-flex justify-content-end">
-                <button onClick={handleClick} className="btn btn-success">Add Artist</button>
-            </div>
+            {
+                managerOrAdmin(userRole)
+                    ? (
+                    <div className="d-flex justify-content-end">
+                        <button onClick={handleClick} className="btn btn-success">Add Artist</button>
+                    </div>
+                    ): ""
+            }
             <div className="mt-3">
                 <table className="table">
                     <thead>
@@ -81,12 +96,17 @@ const Artist = () => {
                             <th>Address</th>
                             <th>First Released</th>
                             <th>Albums</th>
-                            <th>Action</th>
+                            {
+                                managerOrAdmin(userRole)
+                                    ? <th>Action</th>
+                                    : ""
+                            }
+
                         </tr>
                     </thead>
                     <tbody>
                         {artists.slice(currentIndex, uptoIndex).map(u => { // pagination
-                            const route = `/admin/artist/${u.id}`;
+                            const route = `/${userRole}/artist/${u.id}`;
                             return <tr key={u.id}>
                                 <td>{u.name}</td>
                                 <td>{u.dob}</td>
@@ -94,10 +114,17 @@ const Artist = () => {
                                 <td>{u.address}</td>
                                 <td>{u["first_release_year"]}</td>
                                 <td>{u["no_of_albums_released"]}</td>
-                                <td className="d-flex">
-                                    <Link to={route} className="btn btn-sm btn-primary">Edit</Link>
-                                    <button onClick={() => handleDelete(u.id)} className="btn btn-sm btn-danger">delete</button>
-                                </td>
+                                {
+                                    managerOrAdmin(userRole)
+                                        ?
+                                            (
+                                                <td className="d-flex">
+                                                    <Link to={route} className="btn btn-sm btn-primary">Edit</Link>
+                                                    <button onClick={() => handleDelete(u.id)} className="btn btn-sm btn-danger">delete</button>
+                                                </td>
+                                            )
+                                        : ""
+                                }
                             </tr>
                         })}
                     </tbody>

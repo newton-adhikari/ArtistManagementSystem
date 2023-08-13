@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Artist = () => {
+    const userRole = JSON.parse(JSON.stringify(localStorage.getItem("role")));
     const [data, setData] = useState(null);
     const [loading, setIsLoading] = useState(true);
 
@@ -43,7 +44,7 @@ const Artist = () => {
                     position: "top-right",
                     autoClose: 3000,
                 });
-                navigate("/admin/artists");
+                navigate(`/${userRole}/artists`);
             }
             })
              .catch(err => {
@@ -87,7 +88,7 @@ const Artist = () => {
                 </div>
                 <div className="col-12">
                     <label htmlFor="firstReleased" className="form-label">First Released</label>
-                    <input type="text" className="form-control" id="firstReleased" placeholder="First Released" autoComplete='off'
+                    <input disabled type="text" className="form-control" id="firstReleased" placeholder="First Released" autoComplete='off'
                     value={data["first_release_year"]}
                     onChange={e => setData({...data, "first_release_year": e.target.value})}/>
                 </div>
