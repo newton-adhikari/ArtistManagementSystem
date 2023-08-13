@@ -9,6 +9,7 @@ import Users from "./components/Users/Users";
 import AddUser from "./components/Users/AddUser";
 import Artists from "./components/Artists/Artists";
 import Music from "./components/Music/Music";
+import AddMusic from "./components/Music/AddMusic";
 import User from "./components/Users/User/User";
 import AddArtist from "./components/Artists/AddArtist";
 import Artist from "./components/Artists/Artist/Artist";
@@ -28,6 +29,7 @@ function App() {
           <Route path="music" element={<Music />} />
           <Route path="createNewUser" element={<AddUser />} />
           <Route path="createNewArtist" element={<AddArtist />} />
+          <Route path="createNewMusic" element={<AddMusic />} />
         </Route>
         <Route path="/manager" element={<ManagerDashboard />} />
         <Route path="/artist" element={<ArtistDashboard />} />

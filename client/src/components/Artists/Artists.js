@@ -62,6 +62,7 @@ const Artist = () => {
                 console.log(err)
              })
     }
+
     return (
         <div className="px-3 py-3">
             <div className="d-flex justify-content-center">
@@ -112,7 +113,6 @@ const Artist = () => {
                             </div>
                     })}
                 </div>
-
             </div>
         </div>
     )
