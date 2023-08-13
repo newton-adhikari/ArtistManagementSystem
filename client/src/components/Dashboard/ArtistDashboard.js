@@ -27,7 +27,7 @@ const ArtistDashboard = () => {
 									<i className="fs-4 bi bi-house"></i> <span className="ms-1 d-none d-sm-inline">Home</span> </Link>
 							</li>
                             <li>
-                                <Link to="/artist/artistselco" className="nav-link px-0 align-middle text-white">
+                                <Link to="/artist/artists" className="nav-link px-0 align-middle text-white">
                                     <i className="fs-4 bi bi-universal-access"></i> <span className="ms-1 d-none d-sm-inline">Artists</span>
                                 </Link>
                             </li>

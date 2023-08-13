@@ -43,7 +43,7 @@ const Music = () => {
     }, [])
 
     const handleClick = () => {
-        navigate("/admin/createNewMusic");
+        navigate(`/${userRole}/createNewMusic`);
     }
 
     const handleDelete = id => {
@@ -86,7 +86,7 @@ const Music = () => {
                     autoClose: 3000,
                 });
                 modalClose();
-                navigate("/admin/music");
+                navigate(`/${userRole}/music`);
             }
             })
              .catch(err => {
