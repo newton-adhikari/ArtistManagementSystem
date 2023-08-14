@@ -1,5 +1,7 @@
-import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
+import { useEffect } from "react";
+import { BrowserRouter, Route, Routes, Navigate, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CSVManager from "./components/CSVManager/CSVManager";
 import Login from "./components/Login/Login";
 import SignUp from "./components/SignUp/SignUp";
 import AdminDashboard from "./components/Dashboard/AdminDashboard";
@@ -15,11 +17,15 @@ import User from "./components/Users/User/User";
 import AddArtist from "./components/Artists/AddArtist";
 import Artist from "./components/Artists/Artist/Artist";
 import Unauthorized from "./components/Unauthorized";
+import CSVList from "./components/CSVManager/CSVList";
 
 const Logout = () => {
-  localStorage.clear();
-  return <Navigate to="/" />
-}
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
+
+  return <Navigate to="/" />;
+};
 
 function App() {
   return (
@@ -28,7 +34,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/unauthorized" element={<Logout />}/>
+        <Route path="/logout" element={<Logout />}/>
         <Route path="/admin" element={
           <ProtectedRoute allowedRoles={["admin", "super_admin"]}>
             <AdminDashboard />
@@ -67,6 +73,8 @@ function App() {
           <Route path="music" element={<ProtectedRoute allowedRoles={["manager"]}><Music /></ProtectedRoute>} />
           <Route path="createNewArtist" element={<ProtectedRoute allowedRoles={["manager"]}><AddArtist /></ProtectedRoute>} />
           <Route path="artist/:id" element={<ProtectedRoute allowedRoles={["manager"]}><Artist /></ProtectedRoute>} />
+          <Route path="csv" element={<ProtectedRoute allowedRoles={["manager"]}><CSVManager /></ProtectedRoute>} />
+          <Route path="csvlist" element={<ProtectedRoute allowedRoles={["manager"]}><CSVList /></ProtectedRoute>} />
         </Route>
         <Route path="/artist" element={<ProtectedRoute allowedRoles={["artist"]}><ArtistDashboard /></ProtectedRoute>} >
           <Route path="artists" element={<ProtectedRoute allowedRoles={["artist"]}><Artists /></ProtectedRoute>} />

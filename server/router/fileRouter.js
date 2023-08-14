@@ -29,7 +29,7 @@ fileRouter.post("/upload", verifyToken, upload.single("file"), (req, res) => {
     .createReadStream('./uploads/data.csv')
     .pipe(csv( {headers}))
     .on('data', (row) => {
-        const modified = {...row, id:randomUUID, gender: (row.gender.toLowerCase() === "male" ? "m": (row.gender.toLowerCase() === "female" ? "f" : "o"))}
+        const modified = {...row, id:randomUUID(), gender: (row.gender.toLowerCase() === "male" ? "m": (row.gender.toLowerCase() === "female" ? "f" : "o"))}
         results.push(modified);
                 
         // create entry on the database.

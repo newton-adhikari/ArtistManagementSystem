@@ -37,6 +37,11 @@ const ManagerDashboard = () => {
                                 </Link>
                             </li>
                             <li>
+                                <Link to="/manager/csv" className="nav-link px-0 align-middle text-white">
+                                    <i className="fs-4 bi bi-filetype-csv"></i> <span className="ms-1 d-none d-sm-inline">CSV</span>
+                                </Link>
+                            </li>
+                            <li>
                                 <Link to="/logout" data-bs-toggle="collapse" className="nav-link px-0 align-middle text-white">
                                     <i className="fs-4 bi bi-box-arrow-left"></i> <span className="ms-1 d-none d-sm-inline">Logout</span> 
                                 </Link>
