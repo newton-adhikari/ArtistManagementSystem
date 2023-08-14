@@ -124,6 +124,7 @@ artistRouter.get("/:id", verifyToken, (req, res) => {
 
             let toSend = result[0];
 
+            console.log(result[0]);
             toSend.dob = toSend.dob !== "0000-00-00 00:00:00" 
                 ? new Date(toSend.dob).toISOString().split('T')[0] 
                 : ""
