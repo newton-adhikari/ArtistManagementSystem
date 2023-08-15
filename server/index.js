@@ -25,7 +25,11 @@ app.use("/api/user", userRouter);
 app.use("/api/artist", artistRouter);
 app.use("/api/music", musicRouter);
 app.use("/api/count", countRecords);
-app.use("/api/file", fileRouter)
+app.use("/api/file", fileRouter);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`server listening on port ${PORT}`)

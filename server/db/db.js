@@ -1,11 +1,13 @@
 const mysql = require("mysql");
 
 const connection = mysql.createPool({
-    connectionLimit: 1000,
-    host      : "localhost",
-    user      : "root",
-    password  : "",
-    database  : "ams"    
+    host:                  process.env.DB_HOST || "localhost", 
+    user:                  process.env.DB_USERNAME || "root", 
+    password:              process.env.DB_PASSWORD || "",
+    database:              process.env.DB_DBNAME || "ams",
+    waitForConnections:    true,
+    connectionLimit:       10,
+    queueLimit:            0
 })
 
 connection.getConnection((err, con) => {
