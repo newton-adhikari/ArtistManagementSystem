@@ -62,7 +62,6 @@ fileRouter.post("/upload", verifyToken, upload.single("file"), (req, res) => {
 })
 
 fileRouter.get("/download", verifyToken, (req, res) => {
-    console.log(req.user);
     if (!req.user) return res.status(403).json({status: "error", message: "unauthorized"});
 
     db.getConnection((err, con) => {
@@ -75,18 +74,18 @@ fileRouter.get("/download", verifyToken, (req, res) => {
                 return res.status(500).json({status: "error", message: "Unable download please try again"});
             }
 
-            const filePath = jsonToCSV(result, new Date().toISOString());
+            const filePath = jsonToCSV(result);
             const fileName = filePath.split("\\")[1];
 
             res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
             res.setHeader('Content-Type', 'text/csv');
             fs
                 .createReadStream(filePath)
-                .pipe(res)
                 .on("error", (err) => {
                     res.status(500).json({ status: 'error', message: 'Error streaming the file' });
                     console.log("on error");
                 })
+                .pipe(res)
                 .on("finish", () => {
                     fs.unlink(filePath, (err) => {
                         if(err) {
