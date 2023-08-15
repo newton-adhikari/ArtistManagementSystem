@@ -13,8 +13,6 @@ function jsonToCSV(data) {
     const directory = `./uploads`;
     const filePath = (path.join(directory, `${randomUUID()}.csv`));
 
-    console.log(filePath);
-
     fs.writeFile(filePath, csvContent, 'utf8', err => {
       if (err) {
         console.error('Error writing to file:', err);

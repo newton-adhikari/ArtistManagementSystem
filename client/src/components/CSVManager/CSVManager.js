@@ -34,13 +34,23 @@ const CSVManager = () => {
         const headers = {
             Authorization: `Bearer ${token}`,
         }
+        const config = {
+            responseType: "blob",
+            headers
+        }
 
         axios
-            .get(`${baseURL}/api/file/download`, { headers, responseType: "blob" })
+            .get(`${baseURL}/api/file/download`, config)
             .then(res => {
-                console.log(new Blob([res.data]))
-                console.log(res.data);
-                prepareFile(new Blob([res.data]));
+                const blob = new Blob([res.data], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+            
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'data.csv'); 
+                document.body.appendChild(link);
+            
+                link.click();            
             })
             .catch(err => {
                 console.log(err);

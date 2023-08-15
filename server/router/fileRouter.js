@@ -75,10 +75,27 @@ fileRouter.get("/download", verifyToken, (req, res) => {
                 return res.status(500).json({status: "error", message: "Unable download please try again"});
             }
 
-            console.log(result);
             const filePath = jsonToCSV(result, new Date().toISOString());
+            const fileName = filePath.split("\\")[1];
 
-            return res.download(filePath);
+            res.setHeader('Content-Disposition', `attachment; filename=${fileName}`);
+            res.setHeader('Content-Type', 'text/csv');
+            fs
+                .createReadStream(filePath)
+                .pipe(res)
+                .on("error", (err) => {
+                    res.status(500).json({ status: 'error', message: 'Error streaming the file' });
+                    console.log("on error");
+                })
+                .on("finish", () => {
+                    fs.unlink(filePath, (err) => {
+                        if(err) {
+                            console.log(err);
+                        }
+                        console.log(`${fileName} deleted successfully`);
+                    });
+                })
+                
         });
     })
 })
