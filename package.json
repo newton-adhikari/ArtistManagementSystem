@@ -2,11 +2,12 @@
   "name": "artistmanagementsystem",
   "version": "1.0.0",
   "description": "A simple artist management system.",
-  "main": "index.js",
+  "main": "./server/index.js",
   "scripts": {
+    "start": "node ./server/index.js",
     "build:ui": "cd server && rm -rf build && cd ../client/ && npm run build && cp -r build ../server",
-    "deploy": "",
-    "full:deploy": "npm run build:ui && npm run deply",
+    "deploy": "vercel --prod",
+    "full:deploy": "npm run build:ui && npm run deploy",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
