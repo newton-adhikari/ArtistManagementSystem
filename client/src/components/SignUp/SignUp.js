@@ -22,6 +22,8 @@ const SignUp = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
+        console.log(data)
         
         axios.post(`${baseURL}/api/signup`, data)
              .then(res => {
@@ -34,7 +36,7 @@ const SignUp = () => {
                 navigate("/");
              })
              .catch(err => {
-                if(err.response && err.response.status === 401 && err.response.data.message) {
+                if(err.response && err.response.data && err.response.data.message) {
                     toast.error(err.response.data.message, {
                         position: "top-right",
                         autoClose: 3000,
@@ -77,7 +79,7 @@ const SignUp = () => {
                     <div className="col-12">
                         <label htmlFor="inputdob" className="form-label">DOB</label>
                         <input type="date" className="form-control" id="inputdob" placeholder="Enter DOB" autoComplete='off'
-                        onChange={e => setData({...data, dob: e.target.value})}/>
+                        onChange={e => setData({...data, dob: new Date(e.target.value).toISOString()})}/>
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputGender" className="form-label">Gender</label>
