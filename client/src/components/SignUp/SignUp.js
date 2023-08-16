@@ -82,9 +82,9 @@ const SignUp = () => {
                     <div className="col-12">
                         <label htmlFor="inputGender" className="form-label">Gender</label>
                         <select className="form-control" id="inputGender" name="gender" onChange={e => setData({...data, gender: e.target.value})}>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                            <option value="other">Other</option>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                            <option value="o">Other</option>
                         </select>
                     </div>
                     <div className="col-12">
