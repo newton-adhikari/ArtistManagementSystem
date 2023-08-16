@@ -26,7 +26,7 @@ fileRouter.post("/upload", verifyToken, upload.single("file"), (req, res) => {
 
     const headers = ["name", "dob", "gender", "first_release_year", "no_of_albums_released", "address"]
     fs
-    .createReadStream('./uploads/data.csv')
+    .createReadStream('./server/uploads/data.csv')
     .pipe(csv( {headers}))
     .on('data', (row) => {
         const modified = {...row, id:randomUUID(), gender: (row.gender.toLowerCase() === "male" ? "m": (row.gender.toLowerCase() === "female" ? "f" : "o"))}
