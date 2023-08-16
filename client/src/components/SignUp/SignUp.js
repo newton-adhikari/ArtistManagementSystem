@@ -23,8 +23,6 @@ const SignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log(data)
-        
         axios.post(`${baseURL}/api/signup`, data)
              .then(res => {
                 // forward the user to the login
@@ -79,7 +77,7 @@ const SignUp = () => {
                     <div className="col-12">
                         <label htmlFor="inputdob" className="form-label">DOB</label>
                         <input type="date" className="form-control" id="inputdob" placeholder="Enter DOB" autoComplete='off'
-                        onChange={e => setData({...data, dob: new Date(e.target.value).toISOString()})}/>
+                        onChange={e => setData({...data, dob: new Date(e.target.value).toISOString().split("T").join(" ").split("Z")[0]})}/>
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputGender" className="form-label">Gender</label>
