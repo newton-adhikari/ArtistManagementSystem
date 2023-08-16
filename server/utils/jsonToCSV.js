@@ -10,7 +10,7 @@ function jsonToCSV(data) {
     const csvRows = data.map(item => Object.values(item).join(','));
     const csvContent = csvHeader + csvRows.join('\n');
 
-    const directory = `./uploads`;
+    const directory = `./server/uploads`;
     const filePath = (path.join(directory, `${randomUUID()}.csv`));
 
     fs.writeFile(filePath, csvContent, 'utf8', err => {
