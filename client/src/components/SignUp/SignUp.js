@@ -14,7 +14,7 @@ const SignUp = () => {
         password: "",
         phone: "",
         dob: "",
-        gender: "",
+        gender: "m",
         address: "",
     })
 
