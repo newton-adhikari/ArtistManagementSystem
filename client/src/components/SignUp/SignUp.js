@@ -20,7 +20,7 @@ const SignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        axios.post("http://localhost:33330/api/signup", data)
+        axios.post("/api/signup", data)
              .then(res => {
                 // forward the user to the login
                 navigate("/");
