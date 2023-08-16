@@ -36,6 +36,11 @@ const Login = () => {
                 if (role === "artist_manager") role = "manager";
                 localStorage.setItem("role", role);
 
+                toast.success("Login Successful", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+
                 if (role === 'super_admin' || role === "admin") navigate(`/admin`);
                 else navigate(`/${role}`);
             })

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../../service/constants";
 import axios from "axios";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "./SignUp.css";
 
 const SignUp = () => {
@@ -20,14 +23,23 @@ const SignUp = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         
-        axios.post("/api/signup", data)
+        axios.post(`${baseURL}/api/signup`, data)
              .then(res => {
                 // forward the user to the login
+                toast.error("login with your credentials", {
+                    position: "top-right",
+                    autoClose: 3000,
+                });
+
                 navigate("/");
              })
              .catch(err => {
-                // user cannot be created
-                //email must be unique
+                if(err.response && err.response.status === 401 && err.response.data.message) {
+                    toast.error(err.response.data.message, {
+                        position: "top-right",
+                        autoClose: 3000,
+                    })
+                };
              })
     }
 
