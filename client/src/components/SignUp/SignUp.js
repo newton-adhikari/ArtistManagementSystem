@@ -35,6 +35,14 @@ const SignUp = () => {
              })
              .catch(err => {
                 if(err.response && err.response.data && err.response.data.message) {
+                    if (err.response.data.message.indexOf("column 'dob'")) {
+                        toast.error("Invalid Date of Birth", {
+                            position: "top-right",
+                            autoClose: 3000,
+                        });
+
+                        return;
+                    }
                     toast.error(err.response.data.message, {
                         position: "top-right",
                         autoClose: 3000,
