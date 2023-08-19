@@ -69,6 +69,11 @@ function App() {
           <Route path="createNewMusic" element={<ProtectedRoute allowedRoles={["admin"]}><AddMusic /></ProtectedRoute>} />
         </Route>
         <Route path="/manager" element={<ProtectedRoute allowedRoles={["manager"]}><ManagerDashboard /></ProtectedRoute>} >
+          <Route path="" element={
+              <ProtectedRoute allowedRoles={["manager"]}>
+              <Home />
+            </ProtectedRoute>        
+          } />
           <Route path="artists" element={<ProtectedRoute allowedRoles={["manager"]}><Artists /></ProtectedRoute>} />
           <Route path="music" element={<ProtectedRoute allowedRoles={["manager"]}><Music /></ProtectedRoute>} />
           <Route path="createNewArtist" element={<ProtectedRoute allowedRoles={["manager"]}><AddArtist /></ProtectedRoute>} />
@@ -77,6 +82,11 @@ function App() {
           <Route path="csvlist" element={<ProtectedRoute allowedRoles={["manager"]}><CSVList /></ProtectedRoute>} />
         </Route>
         <Route path="/artist" element={<ProtectedRoute allowedRoles={["artist"]}><ArtistDashboard /></ProtectedRoute>} >
+          <Route path="" element={
+              <ProtectedRoute allowedRoles={["artist"]}>
+              <Home />
+            </ProtectedRoute>        
+          } />
           <Route path="artists" element={<ProtectedRoute allowedRoles={["artist"]}><Artists /></ProtectedRoute>} />
           <Route path="music" element={<ProtectedRoute allowedRoles={["artist"]}><Music /></ProtectedRoute>} />
           <Route path="createNewMusic" element={<ProtectedRoute allowedRoles={["artist"]}><AddMusic /></ProtectedRoute>} />

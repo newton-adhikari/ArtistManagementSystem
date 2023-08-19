@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CSVList = () => {
@@ -7,7 +8,6 @@ const CSVList = () => {
     const location = useLocation();
     const artists = location.state && location.state.artists ? location.state.artists.slice(1) : [];
   
-    console.log(artists);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
     const totalPages = Math.ceil(artists.length/itemsPerPage);

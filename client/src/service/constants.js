@@ -1,3 +1,3 @@
-const baseURL = "https://artist-management-system.onrender.com";
+const baseURL = "";
 
 export { baseURL };

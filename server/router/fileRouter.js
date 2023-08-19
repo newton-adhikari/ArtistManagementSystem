@@ -83,13 +83,12 @@ fileRouter.get("/download", verifyToken, (req, res) => {
                 .createReadStream(filePath)
                 .on("error", (err) => {
                     res.status(500).json({ status: 'error', message: 'Error streaming the file' });
-                    console.log("on error");
                 })
                 .pipe(res)
                 .on("finish", () => {
                     fs.unlink(filePath, (err) => {
                         if(err) {
-                            console.log(err);
+                            return console.log(err);
                         }
                         console.log(`${fileName} deleted successfully`);
                     });

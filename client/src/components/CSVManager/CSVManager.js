@@ -2,6 +2,8 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseURL } from "../../service/constants";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CSVManager = () => {
     const [fileUploaded, setFileUploaded] = useState(null);
@@ -20,11 +22,15 @@ const CSVManager = () => {
             axios
                 .post(`${baseURL}/api/file/upload`, formData, { headers })
                 .then(res => {
-                    console.log("file uploaded ", res.data);
                     navigate("/manager/csvlist", { state: { artists: res.data } });
                 })
                 .catch(err => {
-                    console.log(err);
+                    if (err) {
+                        toast.error("can't upload the file", {
+                            position: "top-right",
+                            autoClose: 3000,
+                        });
+                    }
                 })
         }
     }
@@ -53,7 +59,12 @@ const CSVManager = () => {
                 link.click();            
             })
             .catch(err => {
-                console.log(err);
+                if (err) {
+                    toast.error("unable to download", {
+                        position: "top-right",
+                        autoClose: 3000,
+                    });
+                }
             }) 
     }
 

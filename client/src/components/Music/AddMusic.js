@@ -30,6 +30,8 @@ const AddMusic = () => {
         event.preventDefault();
 
         const token = JSON.parse(JSON.stringify(localStorage.getItem("token")));
+        const userRole = JSON.parse(JSON.stringify(localStorage.getItem("role")));
+
 
         const headers = {
             Authorization: `Bearer ${token}`
@@ -43,7 +45,7 @@ const AddMusic = () => {
                     autoClose: 3000,
                 });
                
-                navigate("/admin/music");
+                navigate(`/${userRole}/music`);
              })
              .catch(err => {
                 if (err.response && err.response.data && err.response.data.message) {
@@ -137,7 +139,7 @@ const AddMusic = () => {
                      </div>
                 </div>
                 <div className="col-12">
-                    <label htmlFor="artistName" className="form-label">Title</label>
+                    <label htmlFor="artistName" className="form-label">Artist Name</label>
                     <input minLength="5" disabled type="text" className="form-control" id="artistName" placeholder='Artist Name' autoComplete='off'
                     value={data.name}/>
                 </div>

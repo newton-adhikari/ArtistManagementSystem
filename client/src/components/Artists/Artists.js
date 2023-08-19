@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { baseURL } from "../../service/constants";
 import { toast } from 'react-toastify';
-import { superAdminOrAdmin, managerOrAdmin } from "../../service/rolesChecker";
+import { managerOrAdmin } from "../../service/rolesChecker";
 import 'react-toastify/dist/ReactToastify.css';
 
 const Artist = () => {
@@ -71,8 +71,6 @@ const Artist = () => {
              })
     }
 
-    console.log(managerOrAdmin(userRole));
-    console.log(userRole);
     return (
         <div className="px-3 py-3">
             <div className="d-flex justify-content-center">

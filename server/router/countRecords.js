@@ -5,7 +5,6 @@ const { verifyToken } = require("../middlewares/verifyToken");
 countRecords.get("/", verifyToken, (req, res) => {
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
-    console.log("count records")
     const records = {
         userRecords:0,
         artistRecords:0,

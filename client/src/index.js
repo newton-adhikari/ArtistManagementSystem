@@ -4,6 +4,7 @@ import { UserRoleProvider } from './components/UserRoleContext/UserRoleContext';
 import './index.css';
 import App from './App';
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.min.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 

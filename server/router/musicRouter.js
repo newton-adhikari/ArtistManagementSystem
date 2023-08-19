@@ -5,7 +5,6 @@ const { getCurrentDateTime }    = require("../utils/currentDate");
 const acceptedGenres            = require("../utils/acceptedGenres");
 
 musicRouter.get("/all", verifyToken, (req, res) => {  
-    console.log("in the /all route");  
     // verify the token and get the data back
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
@@ -31,11 +30,9 @@ musicRouter.post("/create", verifyToken, (req, res) => {
 
     if (!artist_id) return res.status(400).json({status: "error", message: "No artist selected"});
 
-    console.log(req.body);
     if(!acceptedGenres.includes(genre)) return res.status(400).json({status: "error", message: "Unknown Genre"});
 
     // get connection to database
-    console.log(req.body.genre);
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
 
@@ -48,7 +45,6 @@ musicRouter.post("/create", verifyToken, (req, res) => {
             
             con.query(query, [artist_id, title, album_name, genre, getCurrentDateTime(), getCurrentDateTime()], (err, result) => {
                 con.release();
-                console.log(result);
                 if (err) return res.status(500).json({status: "error", message: "Database error"});
                 
                 return res.status(201).json({status: "success", message: "created"}); // res.status(200).end();
@@ -66,7 +62,6 @@ musicRouter.put("/update/:id", verifyToken, (req, res) => {
     if(Object.keys(req.body).length > 1) return res.status(400).json({status: "error", message: "Can only updated Album Name"});
     if (!album_name) return res.status(400).json({status: "error", message: "Can only updated Album Name"});
 
-    console.log(album_name)
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
@@ -76,7 +71,6 @@ musicRouter.put("/update/:id", verifyToken, (req, res) => {
 
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
-            console.log(result);
             return res.status(200).json({ status: "success", message: "Album Name updated successfully" });
         })
     })
@@ -87,7 +81,6 @@ musicRouter.delete("/delete/:id", verifyToken, (req, res) => {
 
     const id = req.params.id;
 
-    console.log(id);
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
@@ -96,7 +89,6 @@ musicRouter.delete("/delete/:id", verifyToken, (req, res) => {
             con.release();
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
-            console.log("deleted");
             return res.status(200).json({status: "success", message: "Music deleted successfully"});
         })
     })
@@ -113,7 +105,6 @@ musicRouter.get("/:id", verifyToken, (req, res) => {
 
         con.query(query, [id], (err, result) => {
             con.release();
-            console.log(err)
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
             let toSend = result[0];

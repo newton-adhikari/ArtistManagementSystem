@@ -6,7 +6,6 @@ const { getCurrentDateTime }   = require("../utils/currentDate");
 const roleList                 = require("../utils/rolesList");
 
 userRouter.get("/all", verifyToken, (req, res) => {  
-    console.log("in the /all route");  
     // verify the token and get the data back
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
@@ -24,7 +23,7 @@ userRouter.get("/all", verifyToken, (req, res) => {
                 return {
                     id: d.id,
                     fullName: `${d.first_name} ${d.last_name}`,
-                    emai: d.email,
+                    email: d.email,
                     phone: d.phone,
                     dob: d.dob,
                     gender: d.gender,
@@ -32,7 +31,7 @@ userRouter.get("/all", verifyToken, (req, res) => {
                     role: d["role-type"]
                 }
             })
-            return res.json(results);
+            return res.json(results.filter(u => u.fullName !== "admin admin"));
         });
     })
 })
@@ -83,7 +82,6 @@ userRouter.put("/update/:id", verifyToken, (req, res) => {
 
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
-            console.log(result);
             return res.status(200).json({ status: "success", message: "User updated successfully" });
         })
     })
@@ -94,7 +92,6 @@ userRouter.delete("/delete/:id", verifyToken, (req, res) => {
 
     const id = req.params.id;
 
-    console.log(id);
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
@@ -103,7 +100,6 @@ userRouter.delete("/delete/:id", verifyToken, (req, res) => {
             con.release();
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
-            console.log("deleted");
             return res.status(200).json({status: "success", message: "User deleted successfully"});
         })
     })

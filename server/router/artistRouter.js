@@ -4,7 +4,6 @@ const db                        = require("../db/db");
 const { getCurrentDateTime }    = require("../utils/currentDate");
 
 artistRouter.get("/all", verifyToken, (req, res) => {  
-    console.log("in the /all route");  
     // verify the token and get the data back
     if (!req.user) return res.status(401).json({status: "error", message: "Unauthorized"});
 
@@ -35,11 +34,9 @@ artistRouter.get("/getByName", verifyToken, (req, res) => {
         con.query(query, [name.toLowerCase()], (err, result) => {
             con.release();
             if (err) {
-                console.log(err)
                 return res.status(500).json({status: "error", message: "Unable to prepare query"});
             }
 
-            console.log(name);
             return res.json(result);
         });
     })
@@ -59,7 +56,6 @@ artistRouter.post("/create", verifyToken, (req, res) => {
             
             con.query(query, [name, new Date(dob), gender, address, firstReleased, albums, (req.user.createdAt ? req.user.createdAt : getCurrentDateTime()), getCurrentDateTime()], (err, result) => {
                 con.release();
-                console.log(err);
                 if (err) return res.status(500).json({status: "error", message: "Database error"});
                 
                 return res.status(201).json({status: "success", message: "created"}); // res.status(200).end();
@@ -73,7 +69,6 @@ artistRouter.put("/update/:id", verifyToken, (req, res) => {
     const id                 = req.params.id;
     const { address} = req.body
     
-    console.log(req.body)
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
@@ -93,7 +88,6 @@ artistRouter.delete("/delete/:id", verifyToken, (req, res) => {
 
     const id = req.params.id;
 
-    console.log(id);
     db.getConnection((err, con) => {
         if (err) return res.status(500).json({status: "error", message: "Can't connect to database"});
         
@@ -102,7 +96,6 @@ artistRouter.delete("/delete/:id", verifyToken, (req, res) => {
             con.release();
             if (err) return res.status(500).json({status: "error", message: "Record of artist exists in music table first delete that."});
 
-            console.log("deleted");
             return res.status(200).json({status: "success", message: "User deleted successfully"});
         })
     })
@@ -119,12 +112,10 @@ artistRouter.get("/:id", verifyToken, (req, res) => {
 
         con.query(query, [id], (err, result) => {
             con.release();
-            console.log(err)
             if (err) return res.status(500).json({status: "error", message: "Database error"});
 
             let toSend = result[0];
 
-            console.log(result[0]);
             toSend.dob = toSend.dob !== "0000-00-00 00:00:00" 
                 ? new Date(toSend.dob).toISOString().split('T')[0] 
                 : ""

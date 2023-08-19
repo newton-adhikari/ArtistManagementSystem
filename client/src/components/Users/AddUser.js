@@ -56,17 +56,17 @@ const AddUser = () => {
             <form onSubmit={handleSubmit}>
                 <div className="col-12">
                     <label htmlFor="firstName" className="form-label">First Name</label>
-                    <input minLength="5" required type="text" className="form-control" id="firstName" placeholder='First Name' autoComplete='off'
+                    <input minLength="3" required type="text" className="form-control" id="firstName" placeholder='First Name' autoComplete='off'
                     onChange={e => setData({...data, firstName: e.target.value})}/>
                 </div>
                 <div className="col-12">
                     <label htmlFor="lastName" className="form-label">Last Name</label>
-                    <input minLength="5" required type="text" className="form-control" id="lastName" placeholder='Last Name' autoComplete='off'
+                    <input minLength="3" required type="text" className="form-control" id="lastName" placeholder='Last Name' autoComplete='off'
                     onChange={e => setData({...data, lastName: e.target.value})}/>
                 </div>
                 <div className="col-12">
                     <label htmlFor="inputEmail" className="form-label">Email</label>
-                    <input type="email" className="form-control" id="inputEmail" placeholder='Enter Email' autoComplete='off'
+                    <input required type="email" className="form-control" id="inputEmail" placeholder='Enter Email' autoComplete='off'
                     onChange={e => setData({...data, email: e.target.value})}/>
                 </div>
                 <div className="col-12">
@@ -76,12 +76,12 @@ const AddUser = () => {
                 </div>
                 <div className="col-12">
                     <label htmlFor="inputPhone" className="form-label">Phone</label>
-                    <input type="text" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete='off'
+                    <input type="number" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete="off" max="999999999999"
                     onChange={e => setData({...data, phone: e.target.value})}/>
                 </div>
                 <div className="col-12">
                     <label htmlFor="inputdob" className="form-label">DOB</label>
-                    <input type="date" className="form-control" id="inputdob" placeholder="Enter DOB" autoComplete='off'
+                    <input required type="date" className="form-control" id="inputdob" placeholder="Enter DOB" autoComplete='off'
                     onChange={e => setData({...data, dob: e.target.value})}/>
                 </div>
                 <div className="col-12">

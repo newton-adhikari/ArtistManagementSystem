@@ -47,7 +47,12 @@ const User = () => {
             }
             })
              .catch(err => {
-                console.log(err);
+                if (err) {
+                    toast.error(`unable to update`, {
+                        position: "top-right",
+                        autoClose: 3000,
+                    });
+                }                
              })
 
     }
@@ -79,7 +84,7 @@ const User = () => {
                 </div>
                 <div className="col-12">
                     <label htmlFor="inputPhone" className="form-label">Phone</label>
-                    <input type="text" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete='off'
+                    <input type="number" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete='off'
                     value={data.phone}
                     onChange={e => setData({...data, phone: e.target.value})}/>
                 </div>
