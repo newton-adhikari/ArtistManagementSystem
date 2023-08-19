@@ -7,7 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./SignUp.css";
 
 const SignUp = () => {
-    const [data, setData] = useState({
+    const [data, setData] = useState({ // should make this data BASE-64 encoded in production
         firstName: "",
         lastName: "",
         email: "",
@@ -26,7 +26,7 @@ const SignUp = () => {
         axios.post(`${baseURL}/api/signup`, data)
              .then(res => {
                 // forward the user to the login
-                toast.error("login with your credentials", {
+                toast.success("login with your credentials", {
                     position: "top-right",
                     autoClose: 3000,
                 });
@@ -37,6 +37,15 @@ const SignUp = () => {
                 if(err.response && err.response.data && err.response.data.message) {
                     if (err.response.data.message.indexOf("column 'dob'")) {
                         toast.error("Invalid Date of Birth", {
+                            position: "top-right",
+                            autoClose: 3000,
+                        });
+
+                        return;
+                    }
+
+                    if (err.response.data.message.indexOf("user.email")) {
+                        toast.error("Email already exists", {
                             position: "top-right",
                             autoClose: 3000,
                         });
