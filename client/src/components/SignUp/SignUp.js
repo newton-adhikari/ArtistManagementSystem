@@ -35,7 +35,7 @@ const SignUp = () => {
              })
              .catch(err => {
                 if(err.response && err.response.data && err.response.data.message) {
-                    if (err.response.data.message.indexOf("column 'dob'")) {
+                    if (err.response.data.message.indexOf("column 'dob'") >= 0) {
                         toast.error("Invalid Date of Birth", {
                             position: "top-right",
                             autoClose: 3000,
@@ -44,7 +44,7 @@ const SignUp = () => {
                         return;
                     }
 
-                    if (err.response.data.message.indexOf("user.email")) {
+                    if (err.response.data.message.indexOf("user.email") >= 0) {
                         toast.error("Email already exists", {
                             position: "top-right",
                             autoClose: 3000,
