@@ -84,7 +84,7 @@ const User = () => {
                 </div>
                 <div className="col-12">
                     <label htmlFor="inputPhone" className="form-label">Phone</label>
-                    <input type="number" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete='off'
+                    <input type="number" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete="off" max="999999999999"
                     value={data.phone}
                     onChange={e => setData({...data, phone: e.target.value})}/>
                 </div>

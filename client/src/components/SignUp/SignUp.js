@@ -61,7 +61,7 @@ const SignUp = () => {
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputEmail" className="form-label">Email</label>
-                        <input type="email" className="form-control" id="inputEmail" placeholder='Enter Email' autoComplete='off'
+                        <input required type="email" className="form-control" id="inputEmail" placeholder='Enter Email' autoComplete='off'
                         onChange={e => setData({...data, email: e.target.value})}/>
                     </div>
                     <div className="col-12">
@@ -71,12 +71,12 @@ const SignUp = () => {
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputPhone" className="form-label">Phone</label>
-                        <input type="text" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete='off'
+                        <input type="number" className="form-control" id="inputPhone" placeholder="Enter Phone" autoComplete="off" max="999999999999"
                         onChange={e => setData({...data, phone: e.target.value})}/>
                     </div>
                     <div className="col-12">
                         <label htmlFor="inputdob" className="form-label">DOB</label>
-                        <input type="date" className="form-control" id="inputdob" placeholder="Enter DOB" autoComplete='off'
+                        <input required type="date" className="form-control" id="inputdob" placeholder="Enter DOB" autoComplete='off'
                         onChange={e => setData({...data, dob: new Date(e.target.value).toISOString().split("T").join(" ").split("Z")[0]})}/>
                     </div>
                     <div className="col-12">
